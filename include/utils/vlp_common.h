@@ -159,6 +159,7 @@ public:
   void unpack_scan(const sensor_msgs::PointCloud2::ConstPtr &lidarMsg,
                    TPointCloud &outPointCloud) const {
     if (m_modelType == HESAI_40P) {
+      // std::cout << "unpack_scan HESAI_40P PointCloud" << std::endl;
       VPointCloud temp_pc;
       pcl::fromROSMsg(*lidarMsg, temp_pc);
       outPointCloud.clear();
@@ -182,6 +183,7 @@ public:
         }
       }
     } else if (m_modelType == RS_16) {
+      // std::cout << "unpack_scan RS_16 PointCloud" << std::endl;
       VPointCloud temp_pc;
       pcl::fromROSMsg(*lidarMsg, temp_pc);
       outPointCloud.clear();
@@ -206,6 +208,7 @@ public:
       }
 
     } else {
+      // std::cout << "unpack_scan VLD_16 PointCloud" << std::endl;
       VPointCloud temp_pc;
       pcl::fromROSMsg(*lidarMsg, temp_pc);
 
@@ -308,7 +311,7 @@ private:
 
       for(unsigned int w = 0; w < HORIZON_SCAN; w++) {
         for(unsigned int h = 0; h < N_SCAN; h++) {
-          mHesai40PTimeBlock[w][h] = h * 2.304 * 1e-6 + w * 55.296 * 1e-6; /// VLP_16 16*1824
+          mVLP16TimeBlock[w][h] = h * 2.304 * 1e-6 + w * 55.296 * 1e-6; /// VLP_16 16*1824
         }
       }
 
@@ -323,45 +326,45 @@ private:
 
       // 垂直角度 ( 在官方的角度修正文件中的方位角Azimuth列 https://wwwcms.hesaitech.com/uploads/Pandar40_P_Angle_Correction_File_6cda8d0c59.csv )
       float vert_correction[N_SCAN] = { // 弧度制 参考P33
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            3.125
-            -5.208
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
-            -1.042
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            3.125,
+            -5.208,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
+            -1.042,
             -1.042
       };
       for(int i = 0; i < N_SCAN; i++) {
@@ -411,7 +414,7 @@ private:
 
       for(unsigned int w = 0; w < HORIZON_SCAN; w++) {
         for(unsigned int h = 0; h < N_SCAN; h++) {
-          mRS16TimeBlock[w][h] = h * 2.8 * 1e-6 + w * 55.5 * 1e-6;
+          mHesai40PTimeBlock[w][h] = h * 2.8 * 1e-6 + w * 55.5 * 1e-6;
         }
       }
     } else if( modelType == RS_16 ){ // 这里需要查找雷达用户手册

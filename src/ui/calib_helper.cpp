@@ -69,8 +69,8 @@ CalibrHelper::CalibrHelper(ros::NodeHandle& nh)
       calib_step_ = Error;
       ROS_WARN("LiDAR model %s not support yet.", lidar_model.c_str());
     }
-    /// read dataset
-    std::cout << "\nLoad dataset from " << bag_path_ << std::endl;
+    // read dataset
+    std::cout << "\nLoad dataset lidar_type=" << lidar_model_type << " bag=" << bag_path_ << std::endl;
     IO::LioDataset lio_dataset_temp(lidar_model_type);
     lio_dataset_temp.read(bag_path_, topic_imu_, topic_lidar, bag_start, bag_durr);
     dataset_reader_ = lio_dataset_temp.get_data();

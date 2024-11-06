@@ -103,8 +103,7 @@ public:
                 new VelodyneCorrection(VelodyneCorrection::ModelType::RS_16));
         break;
       default:
-        std::cout << "LiDAR model " << lidar_model_
-                  << " not support yet." << std::endl;
+        std::cout << "LiDAR model " << lidar_model_ << " not support yet." << std::endl;
     }
   }
 
